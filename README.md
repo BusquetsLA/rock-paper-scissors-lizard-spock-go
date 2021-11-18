@@ -1,6 +1,6 @@
 # rock-paper-scissors-lizard-spock-go
 
-A little project made written Go to cover the basics of the languaje.
+A little project written in Go to cover the basics of the languaje.
 
   - 1. Clone the files.
   - 2. Open the console, stand on the root folder of this project and type: go run main.go
