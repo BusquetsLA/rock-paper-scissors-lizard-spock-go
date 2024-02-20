@@ -36,76 +36,44 @@ var tieMsg = []string{
 }
 
 func PlayRound(playerValue int) Round {
-	rand.Seed(time.Now().UnixNano()) // genera el valor aleatorio
-	computerValue := rand.Intn(5)    // se lo asigna a la compu
+	rand.Seed(time.Now().UnixNano()) // Generate random value
+	computerValue := rand.Intn(5)    // Assign random value to computer
 	computerChoice := ""
 	roundResult := ""
 
 	switch computerValue {
 	case ROCK:
-		computerChoice = "Computer chose ROCK"
-		// break
+		computerChoice = "ROCK"
 	case PAPER:
-		computerChoice = "Computer chose PAPER"
-		// break
+		computerChoice = "PAPER"
 	case SCISSORS:
-		computerChoice = "Computer chose SCISSORS"
-		// break
+		computerChoice = "SCISSORS"
 	case LIZARD:
-		computerChoice = "Computer chose LIZARD"
-		// break
+		computerChoice = "LIZARD"
 	case SPOCK:
-		computerChoice = "Computer chose SPOCK"
-		// break
-	default:
+		computerChoice = "SPOCK"
 	}
 
-	// la generacion de mensajes
-	msgInt := rand.Intn(3) // 0 a 2
+	msgInt := rand.Intn(3) // 0 to 2
 	msg := ""
 
-	if playerValue == computerValue {
+	switch {
+	case playerValue == computerValue:
 		roundResult = "It's a draw"
 		msg = tieMsg[msgInt]
-	} else if playerValue == 0 && computerValue == 2 {
-		roundResult = "Player wins!" // rock beats scissors
+	case (playerValue == 0 && computerValue == 2) || (playerValue == 0 && computerValue == 3) || (playerValue == 1 && computerValue == 0) || (playerValue == 1 && computerValue == 4) || (playerValue == 2 && computerValue == 1) || (playerValue == 2 && computerValue == 3) || (playerValue == 3 && computerValue == 4) || (playerValue == 3 && computerValue == 1) || (playerValue == 4 && computerValue == 0) || (playerValue == 4 && computerValue == 2):
+		roundResult = "Player wins!"
 		msg = winMsg[msgInt]
-	} else if playerValue == 0 && computerValue == 3 {
-		roundResult = "Player wins!" // rock beats lizard
-		msg = winMsg[msgInt]
-	} else if playerValue == 1 && computerValue == 0 {
-		roundResult = "Player wins!" // paper beats rock
-		msg = winMsg[msgInt]
-	} else if playerValue == 1 && computerValue == 4 {
-		roundResult = "Player wins!" // paper beats spock
-		msg = winMsg[msgInt]
-	} else if playerValue == 2 && computerValue == 1 {
-		roundResult = "Player wins!" // scissors beats paper
-		msg = winMsg[msgInt]
-	} else if playerValue == 2 && computerValue == 3 {
-		roundResult = "Player wins!" // scissors beats lizard
-		msg = winMsg[msgInt]
-	} else if playerValue == 3 && computerValue == 4 {
-		roundResult = "Player wins!" // lizard beats spock
-		msg = winMsg[msgInt]
-	} else if playerValue == 3 && computerValue == 1 {
-		roundResult = "Player wins!" // lizard beats paper
-		msg = winMsg[msgInt]
-	} else if playerValue == 4 && computerValue == 0 {
-		roundResult = "Player wins!" // spock beats rock
-		msg = winMsg[msgInt]
-	} else if playerValue == 4 && computerValue == 2 {
-		roundResult = "Player wins!" // spock beats scissors
-		msg = winMsg[msgInt]
-	} else {
+	default:
 		roundResult = "Computer wins!"
 		msg = loseMsg[msgInt]
 	}
 
-	var result Round
-	result.Message = msg
-	result.ComputerChoice = computerChoice
-	result.RoundResult = roundResult
+	result := Round{
+		Message:        msg,
+		ComputerChoice: computerChoice,
+		RoundResult:    roundResult,
+	}
 
 	return result
 }
